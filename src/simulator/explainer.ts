@@ -186,7 +186,8 @@ function parseOffsetArg(arg: string, regs: number[]): number {
 }
 
 // Local helper to get reg index by ABI name (to avoid circular dep)
-function getRegIndexByName(name: string): number {
+function getRegIndexByName(name: string | undefined | null): number {
+  if (!name) return -1;   // guard: undefined/null/empty args → no crash
   const map: Record<string, number> = {
     zero:0,ra:1,sp:2,gp:3,tp:4,
     t0:5,t1:6,t2:7,s0:8,fp:8,s1:9,
